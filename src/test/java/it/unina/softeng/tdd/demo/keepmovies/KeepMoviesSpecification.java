@@ -32,5 +32,36 @@ class KeepMoviesSpecification {
 		assertTrue(movies.contains(joker));
 		assertTrue(movies.contains(jojo));
 	}
-	
+
+	@Test
+	public void testSortMoviesByTitle() {
+		KeepMovies keepMovies = new KeepMovies();
+		keepMovies.addMovie(jojo);
+		keepMovies.addMovie(dunkirk);
+		keepMovies.addMovie(up);
+		keepMovies.addMovie(joker);
+		keepMovies.sortMoviesByTitle();
+		List<Movie> sortedMovies = keepMovies.getMovies();
+		assertEquals("Dunkirk", sortedMovies.get(0).getTitle());
+		assertEquals("Jojo Rabbit", sortedMovies.get(1).getTitle());
+		assertEquals("Joker", sortedMovies.get(2).getTitle());
+		assertEquals("Up", sortedMovies.get(3).getTitle());
+	}
+
+	@Test
+	public void testSortMoviesByReleaseYear() {
+		KeepMovies keepMovies = new KeepMovies();
+		keepMovies.addMovie(jojo);
+		keepMovies.addMovie(dunkirk);
+		keepMovies.addMovie(up);
+		keepMovies.addMovie(joker);
+		keepMovies.sortMoviesByReleaseYear();
+		List<Movie> sortedMovies = keepMovies.getMovies();
+		assertEquals("Up", sortedMovies.get(0).getTitle());
+		assertEquals("Dunkirk", sortedMovies.get(1).getTitle());
+		assertEquals("Jojo Rabbit", sortedMovies.get(2).getTitle());
+		assertEquals("Joker", sortedMovies.get(3).getTitle());
+	}
+
+
 }
