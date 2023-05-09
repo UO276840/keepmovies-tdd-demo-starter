@@ -142,6 +142,41 @@ class KeepMoviesSpecification {
 		assertTrue(moviesByYear.get(Year.of(2017)).contains(dunkirk));
 	}
 
+	@Test
+	public void testGroupMoviesByGenreUsingGroupBy() {
+		// Add the movies to KeepMovies
+		KeepMovies keepMovies = new KeepMovies();
+		keepMovies.addMovie(joker);
+		keepMovies.addMovie(jojo);
+		keepMovies.addMovie(dunkirk);
+		keepMovies.addMovie(up);
+
+		// Group the movies by genre
+		Map<String, List<Movie>> groupedByGenre = keepMovies.groupBy(Movie::getGenre);
+
+		// Check that the movies are grouped correctly
+		assertThat(groupedByGenre.keySet(), containsInAnyOrder("thriller", "comedy-drama", "war"));
+		assertThat(groupedByGenre.get("thriller"), contains(joker));
+		assertThat(groupedByGenre.get("comedy-drama"), containsInAnyOrder(jojo, up));
+		assertThat(groupedByGenre.get("war"), contains(dunkirk));
+	}
+
+	@Test
+	public void testGroupMoviesByReleaseYear() {
+		KeepMovies keepMovies = new KeepMovies();
+		keepMovies.addMovie(jojo);
+		keepMovies.addMovie(dunkirk);
+		keepMovies.addMovie(up);
+		keepMovies.addMovie(joker);
+
+		Map<Year, List<Movie>> groupedMovies = keepMovies.groupBy(Movie::getReleaseYear);
+
+		// Verify that each group contains the expected movies
+		assertThat(groupedMovies.get(Year.of(2009)), contains(up));
+		assertThat(groupedMovies.get(Year.of(2017)), contains(dunkirk));
+		assertThat(groupedMovies.get(Year.of(2019)), containsInAnyOrder(joker, jojo));
+	}
+
 
 
 }

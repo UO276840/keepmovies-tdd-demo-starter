@@ -2,6 +2,7 @@ package it.unina.softeng.tdd.demo.keepmovies;
 
 import java.time.Year;
 import java.util.*;
+import java.util.function.Function;
 
 public class KeepMovies {
     private List<Movie> movies;
@@ -56,6 +57,22 @@ public class KeepMovies {
             moviesByYear.get(year).add(movie);
         }
         return moviesByYear;
+    }
+
+    public <T> Map<T, List<Movie>> groupBy(Function<Movie, T> function) {
+        Map<T, List<Movie>> grouping = new HashMap<T, List<Movie>>();
+        for(Movie m : movies) {
+            T key = function.apply(m);
+            if( grouping.containsKey(key) ) {
+                grouping.get(key).add(m);
+            }
+            else {
+                List<Movie> list = new ArrayList<Movie>();
+                list.add(m);
+                grouping.put(key, list);
+            }
+        }
+        return grouping;
     }
 
 
