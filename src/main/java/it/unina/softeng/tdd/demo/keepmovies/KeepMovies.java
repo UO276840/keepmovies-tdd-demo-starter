@@ -28,4 +28,13 @@ public class KeepMovies {
         Collections.sort(movies, Comparator.comparing(Movie::getReleaseYear));
     }
 
+    public void removeWatchedMovies() {
+        for (Movie movie : movies) {
+            if (movie.isWatched()) {
+                movies.remove(movie);
+            }
+        }
+    }
+
+
 }

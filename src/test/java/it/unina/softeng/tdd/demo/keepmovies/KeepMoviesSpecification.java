@@ -24,7 +24,9 @@ class KeepMoviesSpecification {
 
 	@Test
 	public void testAddMovie() {
+		// Add the movies to KeepMovies
 		KeepMovies keepMovies = new KeepMovies();
+		// Add movies
 		keepMovies.addMovie(joker);
 		keepMovies.addMovie(jojo);
 		List<Movie> movies = keepMovies.getMovies();
@@ -35,11 +37,13 @@ class KeepMoviesSpecification {
 
 	@Test
 	public void testSortMoviesByTitle() {
+		// Add the movies to KeepMovies
 		KeepMovies keepMovies = new KeepMovies();
 		keepMovies.addMovie(jojo);
 		keepMovies.addMovie(dunkirk);
 		keepMovies.addMovie(up);
 		keepMovies.addMovie(joker);
+		//Sort movies by Title
 		keepMovies.sortMoviesByTitle();
 		List<Movie> sortedMovies = keepMovies.getMovies();
 		assertEquals("Dunkirk", sortedMovies.get(0).getTitle());
@@ -50,11 +54,13 @@ class KeepMoviesSpecification {
 
 	@Test
 	public void testSortMoviesByReleaseYear() {
+		// Add the movies to KeepMovies
 		KeepMovies keepMovies = new KeepMovies();
 		keepMovies.addMovie(jojo);
 		keepMovies.addMovie(dunkirk);
 		keepMovies.addMovie(up);
 		keepMovies.addMovie(joker);
+		//Sort movies by release year
 		keepMovies.sortMoviesByReleaseYear();
 		List<Movie> sortedMovies = keepMovies.getMovies();
 		assertEquals("Up", sortedMovies.get(0).getTitle());
@@ -62,6 +68,29 @@ class KeepMoviesSpecification {
 		assertEquals("Jojo Rabbit", sortedMovies.get(2).getTitle());
 		assertEquals("Joker", sortedMovies.get(3).getTitle());
 	}
+
+	@Test
+	public void testRemoveWatchedMovies() {
+		// Add the movies to KeepMovies
+		KeepMovies keepMovies = new KeepMovies();
+		keepMovies.addMovie(joker);
+		keepMovies.addMovie(jojo);
+		keepMovies.addMovie(dunkirk);
+
+		// Mark a movie as watched
+		jojo.setWatched(true);
+
+		// Remove watched movies
+		keepMovies.removeWatchedMovies();
+
+		// Check that only unwatched movies remain
+		List<Movie> movies = keepMovies.getMovies();
+		assertEquals(2, movies.size());
+		assertTrue(movies.contains(joker));
+		assertTrue(movies.contains(dunkirk));
+		assertFalse(movies.contains(jojo));
+	}
+
 
 
 }

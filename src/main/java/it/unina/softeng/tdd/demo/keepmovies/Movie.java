@@ -9,7 +9,20 @@ public class Movie {
 	private String title;
 	private Year releaseYear;
 	private String genre;
-	
+	private boolean watched;
+
+	public boolean isWatched() {
+		return watched;
+	}
+
+	public void setWatched(boolean watched) {
+		this.watched = watched;
+	}
+
+	public void markAsWatched(){
+		this.watched=true;
+	}
+
 	public Movie(String title, Year releaseYear, String genre) {
 		this.title = title;
 		this.releaseYear = releaseYear;
