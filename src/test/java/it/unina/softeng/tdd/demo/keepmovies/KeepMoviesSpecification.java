@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.Year;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -89,6 +90,56 @@ class KeepMoviesSpecification {
 		assertTrue(movies.contains(joker));
 		assertTrue(movies.contains(dunkirk));
 		assertFalse(movies.contains(jojo));
+	}
+
+	@Test
+	public void testGroupMoviesByGenre() {
+		// Add the movies to KeepMovies
+		KeepMovies keepMovies = new KeepMovies();
+		keepMovies.addMovie(joker);
+		keepMovies.addMovie(jojo);
+		keepMovies.addMovie(dunkirk);
+		keepMovies.addMovie(up);
+
+		// Group movies by genre
+		Map<String, List<Movie>> moviesByGenre = keepMovies.groupMoviesByGenre();
+
+		// Check that each movie is in the expected genre group
+		assertEquals(2, moviesByGenre.get("comedy-drama").size());
+		assertTrue(moviesByGenre.get("comedy-drama").contains(jojo));
+		assertTrue(moviesByGenre.get("comedy-drama").contains(up));
+
+		assertEquals(1, moviesByGenre.get("thriller").size());
+		assertTrue(moviesByGenre.get("thriller").contains(joker));
+
+		assertEquals(1, moviesByGenre.get("war").size());
+		assertTrue(moviesByGenre.get("war").contains(dunkirk));
+
+
+	}
+
+	@Test
+	public void testGroupMoviesByYear() {
+		// Add the movies to KeepMovies
+		KeepMovies keepMovies = new KeepMovies();
+		keepMovies.addMovie(joker);
+		keepMovies.addMovie(jojo);
+		keepMovies.addMovie(dunkirk);
+		keepMovies.addMovie(up);
+
+		// Group movies by year
+		Map<Year, List<Movie>> moviesByYear = keepMovies.groupMoviesByYear();
+
+		// Check that each movie is in the expected year group
+		assertEquals(2, moviesByYear.get(Year.of(2019)).size());
+		assertTrue(moviesByYear.get(Year.of(2019)).contains(jojo));
+		assertTrue(moviesByYear.get(Year.of(2019)).contains(joker));
+
+		assertEquals(1, moviesByYear.get(Year.of(2009)).size());
+		assertTrue(moviesByYear.get(Year.of(2009)).contains(up));
+
+		assertEquals(1, moviesByYear.get(Year.of(2017)).size());
+		assertTrue(moviesByYear.get(Year.of(2017)).contains(dunkirk));
 	}
 
 

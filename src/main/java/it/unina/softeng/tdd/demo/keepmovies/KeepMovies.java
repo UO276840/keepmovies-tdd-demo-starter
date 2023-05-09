@@ -1,9 +1,7 @@
 package it.unina.softeng.tdd.demo.keepmovies;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.time.Year;
+import java.util.*;
 
 public class KeepMovies {
     private List<Movie> movies;
@@ -35,6 +33,32 @@ public class KeepMovies {
             }
         }
     }
+
+    public Map<String, List<Movie>> groupMoviesByGenre() {
+        Map<String, List<Movie>> moviesByGenre = new HashMap<>();
+        for (Movie movie : movies) {
+            String genre = movie.getGenre();
+            if (!moviesByGenre.containsKey(genre)) {
+                moviesByGenre.put(genre, new ArrayList<>());
+            }
+            moviesByGenre.get(genre).add(movie);
+        }
+        return moviesByGenre;
+    }
+
+    public Map<Year, List<Movie>> groupMoviesByYear() {
+        Map<Year, List<Movie>> moviesByYear = new HashMap<>();
+        for (Movie movie : movies) {
+            Year year = movie.getReleaseYear();
+            if (!moviesByYear.containsKey(year)) {
+                moviesByYear.put(year, new ArrayList<>());
+            }
+            moviesByYear.get(year).add(movie);
+        }
+        return moviesByYear;
+    }
+
+
 
 
 }
